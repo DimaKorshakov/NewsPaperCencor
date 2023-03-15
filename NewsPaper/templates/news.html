@@ -1,0 +1,44 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+<!-- Название у нас будет AllNEWS-->
+{% block title %}
+AllNEWS
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все новости -->
+{% block content %}
+<h1>Все новости</h1>
+<hr>
+{% if news %}
+    <table>
+        <tr>
+            <td>
+                Дата
+            </td>
+            <td>
+                Заголовок
+            </td>
+            <td>
+                Краткое содержание
+            </td>
+        </tr>
+        {% for news in news %}
+        <tr>
+            <td>
+                {{ news.data|date:'M d Y' }}
+            </td>
+            <td>
+                {{ news.header|censor }}
+            </td>
+            <td>
+                {{ news.description|truncatewords:4}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+<h2>Новостей нет!</h2>
+{% endif %}
+{% endblock content %}
